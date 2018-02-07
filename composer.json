@@ -1,0 +1,6 @@
+{
+    "name": "eventum/slack-unfurl",
+    "description": "Slack app for unfurling Eventum issue links",
+    "license": "BSD",
+    "require": {}
+}
