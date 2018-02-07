@@ -16,5 +16,9 @@ class CommandProvider implements ServiceProviderInterface
         $app[Command\UrlVerification::class] = function ($app) {
             return new Command\UrlVerification();
         };
+
+        $app[Command\EventCallback::class] = function ($app) {
+            return new Command\EventCallback();
+        };
     }
 }
