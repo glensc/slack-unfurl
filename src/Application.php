@@ -3,7 +3,6 @@
 namespace Eventum\SlackUnfurl;
 
 use Silex\Application as BaseApplication;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 class Application extends BaseApplication
 {
@@ -16,8 +15,6 @@ class Application extends BaseApplication
 
     private function configureRoutes()
     {
-        $this->get('/', function () {
-            return new JsonResponse([]);
-        })->bind('homepage');
+        $this->get('/', UnfurlController::class);
     }
 }
