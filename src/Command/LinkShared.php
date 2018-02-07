@@ -2,6 +2,7 @@
 
 namespace Eventum\SlackUnfurl\Command;
 
+use Eventum_RPC;
 use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -9,10 +10,13 @@ class LinkShared implements CommandInterface
 {
     /** @var string */
     private $domain;
+    /** @var Eventum_RPC */
+    private $apiClient;
 
-    public function __construct()
+    public function __construct(Eventum_RPC $apiClient)
     {
         $this->domain = getenv('EVENTUM_DOMAIN');
+        $this->apiClient = $apiClient;
 
         if (!$this->domain) {
             throw new InvalidArgumentException();
@@ -29,6 +33,7 @@ class LinkShared implements CommandInterface
     {
         $links = $event['links'] ?? null;
         foreach ($this->getIssueIds($links) as $issueId) {
+            $issue = $this->apiClient->getSimpleIssueDetails($issueId);
         }
 
         return new JsonResponse([]);
