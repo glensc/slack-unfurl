@@ -16,9 +16,16 @@
         "silex/silex": "~2.0"
     },
     "scripts": {
-        "run": [
-            "echo 'Started web server on http://localhost:8888'",
-            "php -S localhost:8888 -t web"
+        "ngrok": [
+            "ngrok http 4390"
+        ],
+        "server": [
+            "echo 'Started web server on http://localhost:4390'",
+            "php -S localhost:4390 -t web"
         ]
+    },
+    "scripts-descriptions": {
+        "server": "Start http server at http://localhost:4390",
+        "ngrok": "Start ngrok, https://api.slack.com/tutorials/tunneling-with-ngrok"
     }
 }
