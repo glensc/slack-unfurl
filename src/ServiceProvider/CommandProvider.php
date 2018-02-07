@@ -23,7 +23,7 @@ class CommandProvider implements ServiceProviderInterface
         };
 
         $app[Command\LinkShared::class] = function ($app) {
-            return new Command\LinkShared($app[Eventum_RPC::class]);
+            return new Command\LinkShared($app[Eventum_RPC::class], $app['logger']);
         };
     }
 }
