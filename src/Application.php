@@ -2,6 +2,7 @@
 
 namespace Eventum\SlackUnfurl;
 
+use Eventum\SlackUnfurl\ServiceProvider\CommandProvider;
 use Silex\Application as BaseApplication;
 
 class Application extends BaseApplication
@@ -10,7 +11,13 @@ class Application extends BaseApplication
     {
         parent::__construct($values);
 
+        $this->registerProviders();
         $this->configureRoutes();
+    }
+
+    private function registerProviders()
+    {
+        $this->register(new CommandProvider());
     }
 
     private function configureRoutes()

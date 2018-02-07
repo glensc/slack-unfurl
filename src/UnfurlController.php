@@ -2,6 +2,7 @@
 
 namespace Eventum\SlackUnfurl;
 
+use Eventum\SlackUnfurl\Command\CommandInterface;
 use Eventum\SlackUnfurl\Command\UrlVerification;
 use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,11 +18,16 @@ class UnfurlController
         }
 
         $type = $data['type'] ?? null;
-        $command = $this->getCommand($type);
+        $command = $this->getCommand($app, $type);
         return $command->execute($data);
     }
 
-    private function getCommand($type)
+    /**
+     * @param Application $app
+     * @param string $type
+     * @return CommandInterface
+     */
+    private function getCommand(Application $app, string $type)
     {
         $map = [
             'url_verification' => UrlVerification::class,
@@ -32,6 +38,6 @@ class UnfurlController
             throw new InvalidArgumentException();
         }
 
-        return new $className;
+        return $app[$className];
     }
 }
