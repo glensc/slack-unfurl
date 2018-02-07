@@ -10,7 +10,7 @@ class EventCallback implements CommandInterface
     /** @var LinkShared */
     private $linkShared;
 
-    public function __construct($linkShared)
+    public function __construct(LinkShared $linkShared)
     {
         $this->linkShared = $linkShared;
     }

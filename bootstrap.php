@@ -4,4 +4,8 @@ use Eventum\SlackUnfurl\Application;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-return new Application();
+$config = [
+    'env' => getenv('APP_ENV') ?: 'prod',
+];
+
+return new Application($config);
