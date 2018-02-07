@@ -15,6 +15,6 @@ class Application extends BaseApplication
 
     private function configureRoutes()
     {
-        $this->get('/', UnfurlController::class);
+        $this->post('/', UnfurlController::class);
     }
 }
