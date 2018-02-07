@@ -28,13 +28,24 @@ class LinkShared implements CommandInterface
     public function execute(array $event): JsonResponse
     {
         $links = $event['links'] ?? null;
-        foreach ($this->getMatchingLinks($links) as $link) {
+        foreach ($this->getIssueIds($links) as $issueId) {
         }
 
         return new JsonResponse([]);
     }
 
-    public function getMatchingLinks(array $links)
+    private function getIssueIds(array $links)
+    {
+        foreach ($this->getMatchingLinks($links) as $link) {
+            if (!preg_match('#view.php\?id=(?P<id>\d+)#', $link['url'], $m)) {
+                continue;
+            }
+
+            yield (int)$m['id'];
+        }
+    }
+
+    private function getMatchingLinks(array $links)
     {
         foreach ($links as $link) {
             $domain = $link['domain'] ?? null;
