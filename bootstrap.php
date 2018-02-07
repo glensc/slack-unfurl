@@ -1,7 +1,5 @@
 <?php
 
-use Silex\Application;
+use Eventum\SlackUnfurl\Application;
 
-$app = new Application();
-
-return $app;
+return new Application();
