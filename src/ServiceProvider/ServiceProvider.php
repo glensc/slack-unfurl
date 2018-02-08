@@ -5,6 +5,7 @@ namespace Eventum\SlackUnfurl\ServiceProvider;
 use Eventum\SlackUnfurl\CommandResolver;
 use Eventum\SlackUnfurl\Controller\UnfurlController;
 use Eventum\SlackUnfurl\SlackClient;
+use Eventum\SlackUnfurl\Unfurler;
 use Eventum_RPC;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
@@ -35,6 +36,13 @@ class ServiceProvider implements ServiceProviderInterface
 
         $app[CommandResolver::class] = function ($app) {
             return new CommandResolver($app);
+        };
+
+        $app[Unfurler::class] = function ($app) {
+            return new Unfurler(
+                $app[Eventum_RPC::class],
+                $app['logger']
+            );
         };
 
         $app[UnfurlController::class] = function ($app) {

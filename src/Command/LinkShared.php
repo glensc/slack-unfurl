@@ -4,7 +4,7 @@ namespace Eventum\SlackUnfurl\Command;
 
 use Eventum\SlackUnfurl\LoggerTrait;
 use Eventum\SlackUnfurl\SlackClient;
-use Eventum_RPC;
+use Eventum\SlackUnfurl\Unfurler;
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -15,20 +15,20 @@ class LinkShared implements CommandInterface
 
     /** @var string */
     private $matchDomain;
-    /** @var Eventum_RPC */
-    private $apiClient;
     /** @var SlackClient */
     private $slackClient;
+    /** @var Unfurler */
+    private $unfurler;
 
     public function __construct(
-        Eventum_RPC $apiClient,
+        Unfurler $unfurler,
         SlackClient $slackClient,
         string $matchDomain,
         LoggerInterface $logger
     ) {
         $this->logger = $logger;
         $this->matchDomain = $matchDomain;
-        $this->apiClient = $apiClient;
+        $this->unfurler = $unfurler;
         $this->slackClient = $slackClient;
 
         if (!$this->matchDomain) {
@@ -54,13 +54,8 @@ class LinkShared implements CommandInterface
                 continue;
             }
 
-            $issue = $this->apiClient->getSimpleIssueDetails($issueId);
-            $this->debug('issue', ['issue' => $issue]);
-
             $url = $link['url'];
-            $unfurls[$url] = [
-                'text' => "Issue #{$issueId}: {$issue['summary']}",
-            ];
+            $unfurls[$url] = $this->unfurler->unfurl($issueId);
         }
 
         $this->debug('unfurls', ['channel' => $event['channel'], 'ts' => $event['message_ts'], 'unfurls' => $unfurls]);

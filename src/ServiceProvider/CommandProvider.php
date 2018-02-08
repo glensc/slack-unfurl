@@ -5,7 +5,7 @@ namespace Eventum\SlackUnfurl\ServiceProvider;
 use Eventum\SlackUnfurl\Command;
 use Eventum\SlackUnfurl\CommandResolver;
 use Eventum\SlackUnfurl\SlackClient;
-use Eventum_RPC;
+use Eventum\SlackUnfurl\Unfurler;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 
@@ -26,7 +26,7 @@ class CommandProvider implements ServiceProviderInterface
 
         $app[Command\LinkShared::class] = function ($app) {
             return new Command\LinkShared(
-                $app[Eventum_RPC::class],
+                $app[Unfurler::class],
                 $app[SlackClient::class],
                 getenv('EVENTUM_DOMAIN'),
                 $app['logger']
