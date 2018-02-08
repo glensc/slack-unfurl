@@ -61,11 +61,6 @@ class Unfurler
             'footer' => "Created by {$issue['reporter']}",
             'fields' => [
                 [
-                    'title' => 'Reported by',
-                    'value' => $issue['reporter'],
-                    'short' => true,
-                ],
-                [
                     'title' => 'Priority',
                     'value' => $issue['pri_title'],
                     'short' => true,
