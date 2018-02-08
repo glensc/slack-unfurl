@@ -2,7 +2,9 @@
 
 namespace Eventum\SlackUnfurl\ServiceProvider;
 
+use Eventum\SlackUnfurl\CommandResolver;
 use Eventum\SlackUnfurl\SlackClient;
+use Eventum\SlackUnfurl\UnfurlController;
 use Eventum_RPC;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
@@ -29,6 +31,14 @@ class ServiceProvider implements ServiceProviderInterface
             $apiToken = getenv('SLACK_API_TOKEN');
 
             return new SlackClient($apiToken);
+        };
+
+        $app[CommandResolver::class] = function ($app) {
+            return new CommandResolver($app);
+        };
+
+        $app[UnfurlController::class] = function ($app) {
+            return new UnfurlController($app[CommandResolver::class]);
         };
     }
 }

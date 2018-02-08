@@ -82,7 +82,7 @@ class LinkShared implements CommandInterface
     {
         foreach ($links as $link) {
             $domain = $link['domain'] ?? null;
-            if ($domain != $this->matchDomain) {
+            if ($domain !== $this->matchDomain) {
                 continue;
             }
 

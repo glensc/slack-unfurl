@@ -2,7 +2,6 @@
 
 namespace Eventum\SlackUnfurl;
 
-
 use Psr\Log\LoggerInterface;
 use Silex\Application as BaseApplication;
 use Silex\Provider\MonologServiceProvider;
@@ -36,7 +35,7 @@ class Application extends BaseApplication
 
     private function configureRoutes()
     {
-        $this->post('/', UnfurlController::class);
+        $this->post('/', $this[UnfurlController::class]);
     }
 
     private function setupErrorHandler()

@@ -3,6 +3,7 @@
 namespace Eventum\SlackUnfurl\ServiceProvider;
 
 use Eventum\SlackUnfurl\Command;
+use Eventum\SlackUnfurl\CommandResolver;
 use Eventum\SlackUnfurl\SlackClient;
 use Eventum_RPC;
 use Pimple\Container;
@@ -20,7 +21,7 @@ class CommandProvider implements ServiceProviderInterface
         };
 
         $app[Command\EventCallback::class] = function ($app) {
-            return new Command\EventCallback($app[Command\LinkShared::class]);
+            return new Command\EventCallback($app[CommandResolver::class]);
         };
 
         $app[Command\LinkShared::class] = function ($app) {

@@ -2,17 +2,22 @@
 
 namespace Eventum\SlackUnfurl\Command;
 
+use Eventum\SlackUnfurl\CommandResolver;
 use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class EventCallback implements CommandInterface
 {
-    /** @var LinkShared */
-    private $linkShared;
+    private const COMMAND_MAP = [
+        'link_shared' => LinkShared::class,
+    ];
 
-    public function __construct(LinkShared $linkShared)
+    /** @var CommandResolver */
+    private $commandResolver;
+
+    public function __construct(CommandResolver $commandResolver)
     {
-        $this->linkShared = $linkShared;
+        $this->commandResolver = $commandResolver;
     }
 
     public function execute(array $payload): JsonResponse
@@ -23,27 +28,10 @@ class EventCallback implements CommandInterface
         }
 
         $type = $event['type'] ?? null;
-
-        $command = $this->getCommand($type);
+        $command = $this->commandResolver
+            ->configure(self::COMMAND_MAP)
+            ->resolve($type);
 
         return $command->execute($event);
-    }
-
-    /**
-     * @param string $type
-     * @return CommandInterface
-     */
-    private function getCommand(string $type)
-    {
-        $map = [
-            'link_shared' => $this->linkShared,
-        ];
-
-        $command = $map[$type] ?? null;
-        if (!$command) {
-            throw new InvalidArgumentException();
-        }
-
-        return $command;
     }
 }
