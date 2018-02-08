@@ -41,6 +41,7 @@ class ServiceProvider implements ServiceProviderInterface
         $app[Unfurler::class] = function ($app) {
             return new Unfurler(
                 $app[Eventum_RPC::class],
+                getenv('TIMEZONE'),
                 $app['logger']
             );
         };

@@ -2,6 +2,8 @@
 
 namespace Eventum\SlackUnfurl;
 
+use DateTime;
+use DateTimeZone;
 use Eventum_RPC;
 use Psr\Log\LoggerInterface;
 
@@ -32,13 +34,20 @@ class Unfurler
 
     /** @var Eventum_RPC */
     private $apiClient;
+    /** @var DateTimeZone */
+    private $utc;
+    /** @var DateTimeZone */
+    private $timeZone;
 
     public function __construct(
         Eventum_RPC $apiClient,
+        string $timeZone,
         LoggerInterface $logger
     ) {
         $this->logger = $logger;
         $this->apiClient = $apiClient;
+        $this->utc = new DateTimeZone('UTC');
+        $this->timeZone = new DateTimeZone($timeZone);
     }
 
     public function unfurl(int $issueId, string $url)
@@ -71,6 +80,11 @@ class Unfurler
                     'value' => $issue['sta_title'],
                     'short' => true,
                 ],
+                [
+                    'title' => 'Last update',
+                    'value' => $this->getLastUpdate($issue)->format('Y-m-d H:i:s'),
+                    'short' => true,
+                ],
             ],
         ];
     }
@@ -86,5 +100,22 @@ class Unfurler
         $issue = $this->apiClient->getIssueDetails($issueId);
 
         return array_intersect_key($issue, array_flip(self::MATCH_KEYS));
+    }
+
+    /**
+     * Get last update whether internal or public last action date
+     *
+     * @param array $issue
+     * @return DateTime last action date in specified timeZone
+     */
+    private function getLastUpdate(array $issue)
+    {
+        $ts1 = new DateTime($issue['iss_last_internal_action_date'], $this->utc);
+        $ts2 = new DateTime($issue['iss_last_public_action_date'], $this->utc);
+
+        $lastUpdated = $ts1 > $ts2 ? $ts1 : $ts2;
+        $lastUpdated->setTimezone($this->timeZone);
+
+        return $lastUpdated;
     }
 }
