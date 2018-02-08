@@ -38,7 +38,10 @@ class ServiceProvider implements ServiceProviderInterface
         };
 
         $app[UnfurlController::class] = function ($app) {
-            return new UnfurlController($app[CommandResolver::class]);
+            return new UnfurlController(
+                $app[CommandResolver::class],
+                getenv('SLACK_VERIFICATION_TOKEN')
+            );
         };
     }
 }

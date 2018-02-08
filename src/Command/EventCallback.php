@@ -24,13 +24,12 @@ class EventCallback implements CommandInterface
     {
         $event = $payload['event'] ?? null;
         if (!$event) {
-            throw new InvalidArgumentException();
+            throw new InvalidArgumentException('Required event missing from payload');
         }
 
-        $type = $event['type'] ?? null;
         $command = $this->commandResolver
             ->configure(self::COMMAND_MAP)
-            ->resolve($type);
+            ->resolve($event['type'] ?? null);
 
         return $command->execute($event);
     }

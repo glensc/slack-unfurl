@@ -17,7 +17,7 @@ class CommandProvider implements ServiceProviderInterface
     public function register(Container $app)
     {
         $app[Command\UrlVerification::class] = function () {
-            return new Command\UrlVerification(getenv('SLACK_VERIFICATION_TOKEN'));
+            return new Command\UrlVerification();
         };
 
         $app[Command\EventCallback::class] = function ($app) {

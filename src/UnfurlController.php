@@ -15,9 +15,13 @@ class UnfurlController
     /** @var CommandResolver */
     private $commandResolver;
 
-    public function __construct(CommandResolver $commandResolver)
+    /** @var string */
+    private $verificationToken;
+
+    public function __construct(CommandResolver $commandResolver, string $verificationToken)
     {
         $this->commandResolver = $commandResolver;
+        $this->verificationToken = $verificationToken;
     }
 
     public function __invoke(Request $request)
@@ -28,11 +32,23 @@ class UnfurlController
             throw new InvalidArgumentException('Unable to decode json');
         }
 
-        $type = $payload['type'] ?? null;
+        $this->verifyToken($payload['token'] ?? null);
+
         $command = $this->commandResolver
             ->configure(self::COMMAND_MAP)
-            ->resolve($type);
+            ->resolve($payload['type'] ?? null);
 
         return $command->execute($payload);
+    }
+
+    /**
+     * @param string $token
+     * @throws InvalidArgumentException
+     */
+    private function verifyToken($token)
+    {
+        if ($token !== $this->verificationToken) {
+            throw new InvalidArgumentException('Token verification failed');
+        }
     }
 }
