@@ -13,7 +13,7 @@ trait LoggerTrait
     protected $logger;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function log($level, $message, array $context = [])
     {

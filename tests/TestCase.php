@@ -2,5 +2,6 @@
 
 namespace Eventum\SlackUnfurl\Test;
 
-abstract class TestCase extends \PHPUnit\Framework\TestCase {
+abstract class TestCase extends \PHPUnit\Framework\TestCase
+{
 }

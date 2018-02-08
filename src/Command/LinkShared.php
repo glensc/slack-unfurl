@@ -50,7 +50,7 @@ class LinkShared implements CommandInterface
         foreach ($this->getMatchingLinks($links) as $link) {
             $issueId = $this->getIssueId($link);
             if (!$issueId) {
-                $this->error("Could not extract issueId", ['link' => $link]);
+                $this->error('Could not extract issueId', ['link' => $link]);
                 continue;
             }
 

@@ -2,7 +2,6 @@
 
 namespace Eventum\SlackUnfurl;
 
-use Eventum\SlackUnfurl\Command;
 use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -18,6 +17,7 @@ class UnfurlController
 
         $type = $payload['type'] ?? null;
         $command = $this->getCommand($app, $type);
+
         return $command->execute($payload);
     }
 

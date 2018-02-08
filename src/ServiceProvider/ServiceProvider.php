@@ -4,14 +4,13 @@ namespace Eventum\SlackUnfurl\ServiceProvider;
 
 use Eventum\SlackUnfurl\SlackClient;
 use Eventum_RPC;
-use Nexy\Slack\Client;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 
 class ServiceProvider implements ServiceProviderInterface
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function register(Container $app)
     {

@@ -2,9 +2,7 @@
 
 namespace Eventum\SlackUnfurl;
 
-use Eventum\SlackUnfurl\ServiceProvider;
-use Eventum_RPC;
-use function get_class;
+
 use Psr\Log\LoggerInterface;
 use Silex\Application as BaseApplication;
 use Silex\Provider\MonologServiceProvider;
@@ -23,7 +21,6 @@ class Application extends BaseApplication
         $this->registerProviders();
         $this->configureRoutes();
         $this->setupErrorHandler();
-
     }
 
     private function registerProviders()

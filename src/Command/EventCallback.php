@@ -25,6 +25,7 @@ class EventCallback implements CommandInterface
         $type = $event['type'] ?? null;
 
         $command = $this->getCommand($type);
+
         return $command->execute($event);
     }
 

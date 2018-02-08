@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Eventum\SlackUnfurl\Command;
 
 use InvalidArgumentException;
