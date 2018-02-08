@@ -55,7 +55,7 @@ class LinkShared implements CommandInterface
             }
 
             $url = $link['url'];
-            $unfurls[$url] = $this->unfurler->unfurl($issueId);
+            $unfurls[$url] = $this->unfurler->unfurl($issueId, $url);
         }
 
         $this->debug('unfurls', ['channel' => $event['channel'], 'ts' => $event['message_ts'], 'unfurls' => $unfurls]);
