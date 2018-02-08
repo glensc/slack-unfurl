@@ -1,4 +1,5 @@
 *~
+/.env
 /.idea/
 /composer.lock
 /vendor/
