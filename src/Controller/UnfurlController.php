@@ -1,7 +1,9 @@
 <?php
 
-namespace Eventum\SlackUnfurl;
+namespace Eventum\SlackUnfurl\Controller;
 
+use Eventum\SlackUnfurl\Command;
+use Eventum\SlackUnfurl\CommandResolver;
 use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\Request;
 

@@ -3,8 +3,8 @@
 namespace Eventum\SlackUnfurl\ServiceProvider;
 
 use Eventum\SlackUnfurl\CommandResolver;
+use Eventum\SlackUnfurl\Controller\UnfurlController;
 use Eventum\SlackUnfurl\SlackClient;
-use Eventum\SlackUnfurl\UnfurlController;
 use Eventum_RPC;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;

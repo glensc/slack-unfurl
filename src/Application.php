@@ -2,6 +2,7 @@
 
 namespace Eventum\SlackUnfurl;
 
+use Eventum\SlackUnfurl\Controller\UnfurlController;
 use Psr\Log\LoggerInterface;
 use Silex\Application as BaseApplication;
 use Silex\Provider\MonologServiceProvider;
