@@ -8,6 +8,14 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class UrlVerification implements CommandInterface
 {
+    /** @var string */
+    private $verificationToken;
+
+    public function __construct(string $verificationToken)
+    {
+        $this->verificationToken = $verificationToken;
+    }
+
     public function execute(array $payload): JsonResponse
     {
         $token = $payload['token'] ?? null;
@@ -29,7 +37,7 @@ class UrlVerification implements CommandInterface
      */
     private function tokenResponse(string $token, string $challenge)
     {
-        if ($token === getenv('SLACK_VERIFICATION_TOKEN')) {
+        if ($token === $this->verificationToken) {
             return new JsonResponse(['challenge' => $challenge]);
         }
 

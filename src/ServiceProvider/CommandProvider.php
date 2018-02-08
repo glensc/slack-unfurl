@@ -15,7 +15,7 @@ class CommandProvider implements ServiceProviderInterface
     public function register(Container $app)
     {
         $app[Command\UrlVerification::class] = function () {
-            return new Command\UrlVerification();
+            return new Command\UrlVerification(getenv('SLACK_VERIFICATION_TOKEN'));
         };
 
         $app[Command\EventCallback::class] = function ($app) {
@@ -23,7 +23,11 @@ class CommandProvider implements ServiceProviderInterface
         };
 
         $app[Command\LinkShared::class] = function ($app) {
-            return new Command\LinkShared($app[Eventum_RPC::class], $app['logger']);
+            return new Command\LinkShared(
+                $app[Eventum_RPC::class],
+                getenv('EVENTUM_DOMAIN'),
+                $app['logger']
+            );
         };
     }
 }

@@ -13,17 +13,17 @@ class LinkShared implements CommandInterface
     use LoggerTrait;
 
     /** @var string */
-    private $domain;
+    private $matchDomain;
     /** @var Eventum_RPC */
     private $apiClient;
 
-    public function __construct(Eventum_RPC $apiClient, LoggerInterface $logger)
+    public function __construct(Eventum_RPC $apiClient, string $matchDomain, LoggerInterface $logger)
     {
         $this->logger = $logger;
-        $this->domain = getenv('EVENTUM_DOMAIN');
+        $this->matchDomain = $matchDomain;
         $this->apiClient = $apiClient;
 
-        if (!$this->domain) {
+        if (!$this->matchDomain) {
             throw new InvalidArgumentException();
         }
     }
@@ -60,7 +60,7 @@ class LinkShared implements CommandInterface
     {
         foreach ($links as $link) {
             $domain = $link['domain'] ?? null;
-            if ($domain != $this->domain) {
+            if ($domain != $this->matchDomain) {
                 continue;
             }
 
