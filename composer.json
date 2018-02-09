@@ -32,12 +32,12 @@
             "ngrok http 4390"
         ],
         "server": [
-            "echo 'Started web server on http://localhost:4390'",
-            "php -S localhost:4390 -t web"
+            "echo 'Started web server on http://eventum-slack-unfurl.127.0.0.1.xip.io:4390'",
+            "php -S eventum-slack-unfurl.127.0.0.1.xip.io:4390 -t web"
         ]
     },
     "scripts-descriptions": {
-        "server": "Start http server at http://localhost:4390",
+        "server": "Start http server at http://eventum-slack-unfurl.127.0.0.1.xip.io:4390",
         "ngrok": "Start ngrok, https://api.slack.com/tutorials/tunneling-with-ngrok"
     }
 }

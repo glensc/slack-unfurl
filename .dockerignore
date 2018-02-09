@@ -1,0 +1,7 @@
+# https://docs.docker.com/engine/reference/builder/#dockerignore-file
+/*
+!/bootstrap.php
+!/composer.*
+!/src
+!/vendor
+!/web
