@@ -6,7 +6,7 @@ services:
     ports:
       - 4390:4390
     volumes:
-      - ./.env:/app/env:ro
+      - ./.env:/app/.env:ro
       - ./var/logs:/app/var/logs
 
 # vim:ts=2:sw=2:et
