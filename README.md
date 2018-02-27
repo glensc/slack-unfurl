@@ -4,6 +4,18 @@
 
 [unfurling]: https://api.slack.com/docs/message-link-unfurling
 
+## Slack App
+
+[Create](https://api.slack.com/apps/new) or [Manage](https://api.slack.com/apps) your app.
+
+You need `Verification Token` (`SLACK_VERIFICATION_TOKEN`) for next step.
+
+Under `Features`:
+- enable [Events API](http://api.slack.com/events-api) for [`link_shared`](https://api.slack.com/events/link_shared) event with `links:read` scope.
+- enable `Incoming Webhooks`
+
+Obtain `OAuth Access Token` (`SLACK_API_TOKEN`) under `OAuth & Permissions`
+
 ## Configuration
 
 ```
