@@ -2,86 +2,48 @@
 
 namespace Eventum\SlackUnfurl\Command;
 
+use Eventum\SlackUnfurl\Event\Events;
+use Eventum\SlackUnfurl\Event\UnfurlEvent;
 use Eventum\SlackUnfurl\LoggerTrait;
 use Eventum\SlackUnfurl\SlackClient;
-use Eventum\SlackUnfurl\Unfurler;
-use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class LinkShared implements CommandInterface
 {
     use LoggerTrait;
 
-    /** @var string */
-    private $matchDomain;
     /** @var SlackClient */
     private $slackClient;
-    /** @var Unfurler */
-    private $unfurler;
+    /** @var EventDispatcherInterface */
+    private $dispatcher;
 
     public function __construct(
-        Unfurler $unfurler,
         SlackClient $slackClient,
-        string $matchDomain,
+        EventDispatcherInterface $dispatcher,
         LoggerInterface $logger
     ) {
-        $this->logger = $logger;
-        $this->matchDomain = $matchDomain;
-        $this->unfurler = $unfurler;
+        $this->dispatcher = $dispatcher;
         $this->slackClient = $slackClient;
-
-        if (!$this->matchDomain) {
-            throw new InvalidArgumentException();
-        }
+        $this->logger = $logger;
     }
 
     /**
      * Handle Link Shared event
-     * @param array $event
+     * @param array $data
      * @return JsonResponse
      * @see https://api.slack.com/events/link_shared
      */
-    public function execute(array $event): JsonResponse
+    public function execute(array $data): JsonResponse
     {
-        $links = $event['links'] ?? null;
+        /** @var UnfurlEvent $event */
+        $event = $this->dispatcher->dispatch(Events::SLACK_UNFURL, new UnfurlEvent($data));
+        $unfurls = $event->getUnfurls();
 
-        $unfurls = [];
-        foreach ($this->getMatchingLinks($links) as $link) {
-            $issueId = $this->getIssueId($link);
-            if (!$issueId) {
-                $this->error('Could not extract issueId', ['link' => $link]);
-                continue;
-            }
-
-            $url = $link['url'];
-            $unfurls[$url] = $this->unfurler->unfurl($issueId, $url);
-        }
-
-        $this->debug('unfurls', ['channel' => $event['channel'], 'ts' => $event['message_ts'], 'unfurls' => $unfurls]);
-        $this->slackClient->unfurl($event['channel'], $event['message_ts'], $unfurls);
+        $this->debug('unfurls', ['channel' => $data['channel'], 'ts' => $data['message_ts'], 'unfurls' => $unfurls]);
+        $this->slackClient->unfurl($data['channel'], $data['message_ts'], $unfurls);
 
         return new JsonResponse([]);
-    }
-
-    private function getIssueId($link)
-    {
-        if (!preg_match('#view.php\?id=(?P<id>\d+)#', $link['url'], $m)) {
-            return null;
-        }
-
-        return (int)$m['id'];
-    }
-
-    private function getMatchingLinks(array $links)
-    {
-        foreach ($links as $link) {
-            $domain = $link['domain'] ?? null;
-            if ($domain !== $this->matchDomain) {
-                continue;
-            }
-
-            yield $link;
-        }
     }
 }

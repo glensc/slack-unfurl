@@ -4,11 +4,13 @@ namespace Eventum\SlackUnfurl\ServiceProvider;
 
 use Eventum\SlackUnfurl\CommandResolver;
 use Eventum\SlackUnfurl\Controller\UnfurlController;
+use Eventum\SlackUnfurl\Event\Subscriber\EventumUnfurler;
 use Eventum\SlackUnfurl\SlackClient;
 use Eventum\SlackUnfurl\Unfurler;
 use Eventum_RPC;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ServiceProvider implements ServiceProviderInterface
 {
@@ -51,6 +53,22 @@ class ServiceProvider implements ServiceProviderInterface
                 $app[CommandResolver::class],
                 getenv('SLACK_VERIFICATION_TOKEN')
             );
+        };
+
+        $app[EventumUnfurler::class] = function ($app) {
+            return new EventumUnfurler(
+                $app[Unfurler::class],
+                getenv('EVENTUM_DOMAIN'),
+                $app['logger']
+            );
+        };
+
+        $app['unfurl.dispatcher'] = function ($app) {
+            /** @var EventDispatcherInterface $dispatcher */
+            $dispatcher = $app['dispatcher'];
+            $dispatcher->addSubscriber($app[EventumUnfurler::class]);
+
+            return $dispatcher;
         };
     }
 }
