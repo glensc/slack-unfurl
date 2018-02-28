@@ -6,7 +6,6 @@ use Eventum\SlackUnfurl\CommandResolver;
 use Eventum\SlackUnfurl\Controller\UnfurlController;
 use Eventum\SlackUnfurl\Event\Subscriber\EventumUnfurler;
 use Eventum\SlackUnfurl\SlackClient;
-use Eventum\SlackUnfurl\Unfurler;
 use Eventum_RPC;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
@@ -30,6 +29,15 @@ class ServiceProvider implements ServiceProviderInterface
             return $client;
         };
 
+        $app[EventumUnfurler::class] = function ($app) {
+            return new EventumUnfurler(
+                $app[Eventum_RPC::class],
+                getenv('EVENTUM_DOMAIN'),
+                getenv('TIMEZONE'),
+                $app['logger']
+            );
+        };
+
         $app[SlackClient::class] = function ($app) {
             $apiToken = getenv('SLACK_API_TOKEN');
 
@@ -40,26 +48,10 @@ class ServiceProvider implements ServiceProviderInterface
             return new CommandResolver($app);
         };
 
-        $app[Unfurler::class] = function ($app) {
-            return new Unfurler(
-                $app[Eventum_RPC::class],
-                getenv('TIMEZONE'),
-                $app['logger']
-            );
-        };
-
         $app[UnfurlController::class] = function ($app) {
             return new UnfurlController(
                 $app[CommandResolver::class],
                 getenv('SLACK_VERIFICATION_TOKEN')
-            );
-        };
-
-        $app[EventumUnfurler::class] = function ($app) {
-            return new EventumUnfurler(
-                $app[Unfurler::class],
-                getenv('EVENTUM_DOMAIN'),
-                $app['logger']
             );
         };
 
