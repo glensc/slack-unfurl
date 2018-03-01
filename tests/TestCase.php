@@ -1,6 +1,6 @@
 <?php
 
-namespace Eventum\SlackUnfurl\Test;
+namespace SlackUnfurl\Test;
 
 abstract class TestCase extends \PHPUnit\Framework\TestCase
 {

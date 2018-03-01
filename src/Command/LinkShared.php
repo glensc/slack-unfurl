@@ -1,12 +1,12 @@
 <?php
 
-namespace Eventum\SlackUnfurl\Command;
+namespace SlackUnfurl\Command;
 
-use Eventum\SlackUnfurl\Event\Events;
-use Eventum\SlackUnfurl\Event\UnfurlEvent;
-use Eventum\SlackUnfurl\LoggerTrait;
-use Eventum\SlackUnfurl\SlackClient;
 use Psr\Log\LoggerInterface;
+use SlackUnfurl\Event\Events;
+use SlackUnfurl\Event\UnfurlEvent;
+use SlackUnfurl\LoggerTrait;
+use SlackUnfurl\SlackClient;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 

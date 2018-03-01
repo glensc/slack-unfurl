@@ -1,6 +1,6 @@
 <?php
 
-use Eventum\SlackUnfurl\Application;
+use SlackUnfurl\Application;
 use Symfony\Component\Dotenv\Dotenv;
 
 require_once __DIR__ . '/vendor/autoload.php';

@@ -1,6 +1,6 @@
 <?php
 
-namespace Eventum\SlackUnfurl;
+namespace SlackUnfurl;
 
 use InvalidArgumentException;
 use Pimple\Container;

@@ -1,11 +1,11 @@
 <?php
 
-namespace Eventum\SlackUnfurl;
+namespace SlackUnfurl;
 
-use Eventum\SlackUnfurl\Controller\UnfurlController;
 use Psr\Log\LoggerInterface;
 use Silex\Application as BaseApplication;
 use Silex\Provider\MonologServiceProvider;
+use SlackUnfurl\Controller\UnfurlController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Throwable;

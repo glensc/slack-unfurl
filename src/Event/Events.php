@@ -1,6 +1,6 @@
 <?php
 
-namespace Eventum\SlackUnfurl\Event;
+namespace SlackUnfurl\Event;
 
 final class Events
 {

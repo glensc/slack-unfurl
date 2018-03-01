@@ -1,6 +1,6 @@
 <?php
 
-namespace Eventum\SlackUnfurl\Command;
+namespace SlackUnfurl\Command;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 

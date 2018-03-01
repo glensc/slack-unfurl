@@ -1,15 +1,15 @@
 <?php
 
-namespace Eventum\SlackUnfurl\Event\Subscriber;
+namespace SlackUnfurl\Event\Subscriber;
 
 use DateTime;
 use DateTimeZone;
-use Eventum\SlackUnfurl\Event\Events;
-use Eventum\SlackUnfurl\Event\UnfurlEvent;
-use Eventum\SlackUnfurl\LoggerTrait;
 use Eventum_RPC;
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
+use SlackUnfurl\Event\Events;
+use SlackUnfurl\Event\UnfurlEvent;
+use SlackUnfurl\LoggerTrait;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class EventumUnfurler implements EventSubscriberInterface

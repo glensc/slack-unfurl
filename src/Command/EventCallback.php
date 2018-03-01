@@ -1,9 +1,9 @@
 <?php
 
-namespace Eventum\SlackUnfurl\Command;
+namespace SlackUnfurl\Command;
 
-use Eventum\SlackUnfurl\CommandResolver;
 use InvalidArgumentException;
+use SlackUnfurl\CommandResolver;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class EventCallback implements CommandInterface

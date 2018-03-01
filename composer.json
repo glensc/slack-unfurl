@@ -8,12 +8,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Eventum\\SlackUnfurl\\": "src/"
+            "SlackUnfurl\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Eventum\\SlackUnfurl\\Test\\": "tests/"
+            "SlackUnfurl\\Test\\": "tests/"
         }
     },
     "require": {

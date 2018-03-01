@@ -1,6 +1,6 @@
 <?php
 
-namespace Eventum\SlackUnfurl;
+namespace SlackUnfurl;
 
 use Psr\Log\LoggerInterface;
 use Psr\Log\LoggerTrait as PsrLoggerTrait;

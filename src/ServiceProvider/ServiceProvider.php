@@ -1,14 +1,14 @@
 <?php
 
-namespace Eventum\SlackUnfurl\ServiceProvider;
+namespace SlackUnfurl\ServiceProvider;
 
-use Eventum\SlackUnfurl\CommandResolver;
-use Eventum\SlackUnfurl\Controller\UnfurlController;
-use Eventum\SlackUnfurl\Event\Subscriber\EventumUnfurler;
-use Eventum\SlackUnfurl\SlackClient;
 use Eventum_RPC;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
+use SlackUnfurl\CommandResolver;
+use SlackUnfurl\Controller\UnfurlController;
+use SlackUnfurl\Event\Subscriber\EventumUnfurler;
+use SlackUnfurl\SlackClient;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ServiceProvider implements ServiceProviderInterface

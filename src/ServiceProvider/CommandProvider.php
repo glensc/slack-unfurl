@@ -1,12 +1,12 @@
 <?php
 
-namespace Eventum\SlackUnfurl\ServiceProvider;
+namespace SlackUnfurl\ServiceProvider;
 
-use Eventum\SlackUnfurl\Command;
-use Eventum\SlackUnfurl\CommandResolver;
-use Eventum\SlackUnfurl\SlackClient;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
+use SlackUnfurl\Command;
+use SlackUnfurl\CommandResolver;
+use SlackUnfurl\SlackClient;
 
 class CommandProvider implements ServiceProviderInterface
 {
