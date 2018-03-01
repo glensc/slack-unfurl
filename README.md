@@ -29,6 +29,10 @@ The app itself handles no links, you need to add some providers:
 - [Eventum Provider](https://github.com/eventum/slack-unfurl-eventum)
 - [GitLab Provider](https://github.com/glensc/slack-unfurl-gitlab)
 
+## Troubleshoot
+
+If the unfurl is not happening check that the domain is not [blacklisted](https://my.slack.com/admin/attachments).
+
 ## Development
 
 Install composer deps and start builtin HTTP server:
