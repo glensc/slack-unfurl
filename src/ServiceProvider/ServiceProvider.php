@@ -5,6 +5,7 @@ namespace SlackUnfurl\ServiceProvider;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 use SlackUnfurl\CommandResolver;
+use SlackUnfurl\Controller\InfoController;
 use SlackUnfurl\Controller\UnfurlController;
 use SlackUnfurl\SlackClient;
 
@@ -31,6 +32,10 @@ class ServiceProvider implements ServiceProviderInterface
                 $app[CommandResolver::class],
                 $app['unfurl.slack_verification_token']
             );
+        };
+
+        $app[InfoController::class] = function ($app) {
+            return new InfoController($app['unfurl.dispatcher']);
         };
 
         $app['unfurl.dispatcher'] = function ($app) {

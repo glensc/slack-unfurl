@@ -5,6 +5,7 @@ namespace SlackUnfurl;
 use Psr\Log\LoggerInterface;
 use Silex\Application as BaseApplication;
 use Silex\Provider\MonologServiceProvider;
+use SlackUnfurl\Controller\InfoController;
 use SlackUnfurl\Controller\UnfurlController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,9 +19,9 @@ class Application extends BaseApplication
     {
         parent::__construct($values);
 
+        $this->setupErrorHandler();
         $this->registerProviders();
         $this->configureRoutes();
-        $this->setupErrorHandler();
     }
 
     private function registerProviders()
@@ -37,6 +38,7 @@ class Application extends BaseApplication
     private function configureRoutes()
     {
         $this->post('/', $this[UnfurlController::class]);
+        $this->get('/', $this[InfoController::class]);
     }
 
     private function setupErrorHandler()
