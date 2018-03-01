@@ -22,6 +22,13 @@ Obtain `OAuth Access Token` (`SLACK_API_TOKEN`) under `OAuth & Permissions`
 cp env.example .env
 ```
 
+## Adding providers
+
+The app itself handles no links, you need to add some providers:
+
+- [Eventum Provider](https://github.com/eventum/slack-unfurl-eventum)
+- [GitLab Provider](https://github.com/glensc/slack-unfurl-gitlab)
+
 ## Development
 
 Install composer deps and start builtin HTTP server:
