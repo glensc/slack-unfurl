@@ -1,7 +1,7 @@
 {
     "name": "glen/slack-unfurl",
     "description": "Extensible Slack App for link unfurling",
-    "license": "BSD",
+    "license": "MIT",
     "type": "project",
     "config": {
         "sort-packages": true
