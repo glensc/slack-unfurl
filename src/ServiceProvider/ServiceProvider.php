@@ -15,10 +15,11 @@ class ServiceProvider implements ServiceProviderInterface
      */
     public function register(Container $app)
     {
-        $app[SlackClient::class] = function ($app) {
-            $apiToken = getenv('SLACK_API_TOKEN');
+        $app['unfurl.slack_api_token'] = getenv('SLACK_API_TOKEN');
+        $app['unfurl.slack_verification_token'] = getenv('SLACK_VERIFICATION_TOKEN');
 
-            return new SlackClient($apiToken);
+        $app[SlackClient::class] = function ($app) {
+            return new SlackClient($app['unfurl.slack_api_token']);
         };
 
         $app[CommandResolver::class] = function ($app) {
@@ -28,7 +29,7 @@ class ServiceProvider implements ServiceProviderInterface
         $app[UnfurlController::class] = function ($app) {
             return new UnfurlController(
                 $app[CommandResolver::class],
-                getenv('SLACK_VERIFICATION_TOKEN')
+                $app['unfurl.slack_verification_token']
             );
         };
 
