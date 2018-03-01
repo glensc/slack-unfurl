@@ -42,6 +42,17 @@ class UnfurlEvent extends Event
         return $this->data['links'] ?? [];
     }
 
+    public function getMatchingLinks(string $domain)
+    {
+        foreach ($this->getLinks() as $link) {
+            if ($link['domain'] !== $domain) {
+                continue;
+            }
+
+            yield $link;
+        }
+    }
+
     public function getUnfurls(): array
     {
         return $this->unfurls;
