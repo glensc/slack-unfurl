@@ -1,6 +1,6 @@
 {
-    "name": "eventum/slack-unfurl",
-    "description": "Slack app for unfurling Eventum issue links",
+    "name": "glen/slack-unfurl",
+    "description": "Extensible Slack App for link unfurling",
     "license": "BSD",
     "type": "project",
     "config": {
@@ -18,7 +18,6 @@
     },
     "require": {
         "php": "^7.1.3",
-        "eventum/rpc": "^4.1",
         "monolog/monolog": "^1.23",
         "silex/silex": "~2.0",
         "symfony/dotenv": "^4.0",
@@ -32,12 +31,12 @@
             "ngrok http 4390"
         ],
         "server": [
-            "echo 'Started web server on http://eventum-slack-unfurl.127.0.0.1.xip.io:4390'",
-            "php -S eventum-slack-unfurl.127.0.0.1.xip.io:4390 -t web"
+            "echo 'Started web server on http://slack-unfurl.127.0.0.1.xip.io:4390'",
+            "php -S slack-unfurl.127.0.0.1.xip.io:4390 -t web"
         ]
     },
     "scripts-descriptions": {
-        "server": "Start http server at http://eventum-slack-unfurl.127.0.0.1.xip.io:4390",
+        "server": "Start http server at http://slack-unfurl.127.0.0.1.xip.io:4390",
         "ngrok": "Start ngrok, https://api.slack.com/tutorials/tunneling-with-ngrok"
     }
 }

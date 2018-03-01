@@ -1,6 +1,6 @@
-# Eventum Slack unfurl
+# Extensible Slack App for link unfurling
 
-*Slack app for [unfurling] Eventum issue links*
+*Slack app for [unfurling] issue links*
 
 [unfurling]: https://api.slack.com/docs/message-link-unfurling
 
@@ -34,8 +34,8 @@ composer run server
 To build docker image locally and run it:
 
 ```
-docker build -t eventum-slack-unfurl .
-docker run --rm -p 4390:4390 -v $(pwd)/var/logs:/app/var/logs -v $(pwd)/.env:/app/.env eventum-slack-unfurl
+docker build -t slack-unfurl .
+docker run --rm -p 4390:4390 -v $(pwd)/var/logs:/app/var/logs -v $(pwd)/.env:/app/.env slack-unfurl
 ```
 
-The service is accessible from http://eventum-slack-unfurl.127.0.0.1.xip.io:4390/ or just http://localhost:4390/
+The service is accessible from http://slack-unfurl.127.0.0.1.xip.io:4390/ or just http://localhost:4390/
