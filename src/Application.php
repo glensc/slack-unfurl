@@ -37,8 +37,12 @@ class Application extends BaseApplication
 
     private function configureRoutes()
     {
-        $this->post('/', $this[UnfurlController::class]);
-        $this->get('/', $this[InfoController::class]);
+        $this->post('/', function (Request $request) {
+            return $this[UnfurlController::class]($request);
+        });
+        $this->get('/', function (Request $request) {
+            return $this[InfoController::class]($request);
+        });
     }
 
     private function setupErrorHandler()

@@ -11,4 +11,6 @@ $config = [
     'env' => $_SERVER['APP_ENV'] ?? 'dev',
 ];
 
-return new Application($config);
+$app = new Application($config);
+
+return $app;
