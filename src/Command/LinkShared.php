@@ -37,6 +37,8 @@ class LinkShared implements CommandInterface
      */
     public function execute(array $data): JsonResponse
     {
+        $this->debug('link_shared', ['event' => $data]);
+
         /** @var UnfurlEvent $event */
         $event = $this->dispatcher->dispatch(Events::SLACK_UNFURL, new UnfurlEvent($data));
         $unfurls = $event->getUnfurls();
