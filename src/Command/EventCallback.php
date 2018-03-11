@@ -2,8 +2,8 @@
 
 namespace SlackUnfurl\Command;
 
-use InvalidArgumentException;
 use SlackUnfurl\CommandResolver;
+use SlackUnfurl\RuntimeException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class EventCallback implements CommandInterface
@@ -24,7 +24,7 @@ class EventCallback implements CommandInterface
     {
         $event = $payload['event'] ?? null;
         if (!$event) {
-            throw new InvalidArgumentException('Required event missing from payload');
+            throw new RuntimeException('Required event missing from payload');
         }
 
         $command = $this->commandResolver

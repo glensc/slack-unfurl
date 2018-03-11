@@ -2,7 +2,7 @@
 
 namespace SlackUnfurl\Command;
 
-use InvalidArgumentException;
+use SlackUnfurl\RuntimeException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class UrlVerification implements CommandInterface
@@ -21,6 +21,6 @@ class UrlVerification implements CommandInterface
             return new JsonResponse(['challenge' => $challenge]);
         }
 
-        throw new InvalidArgumentException();
+        throw new RuntimeException();
     }
 }

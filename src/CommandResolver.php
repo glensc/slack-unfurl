@@ -2,7 +2,6 @@
 
 namespace SlackUnfurl;
 
-use InvalidArgumentException;
 use Pimple\Container;
 
 class CommandResolver
@@ -28,7 +27,7 @@ class CommandResolver
     {
         $resolved = $this->mapping[$command] ?? null;
         if (!$resolved) {
-            throw new InvalidArgumentException("Unable to resolve $command");
+            throw new RuntimeException("Unable to resolve $command");
         }
 
         return $this->container[$resolved];
