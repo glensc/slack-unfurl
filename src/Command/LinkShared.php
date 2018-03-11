@@ -44,7 +44,9 @@ class LinkShared implements CommandInterface
         $unfurls = $event->getUnfurls();
 
         $this->debug('unfurls', ['channel' => $data['channel'], 'ts' => $data['message_ts'], 'unfurls' => $unfurls]);
-        $this->slackClient->unfurl($data['channel'], $data['message_ts'], $unfurls);
+        if ($unfurls) {
+            $this->slackClient->unfurl($data['channel'], $data['message_ts'], $unfurls);
+        }
 
         return new JsonResponse([]);
     }
