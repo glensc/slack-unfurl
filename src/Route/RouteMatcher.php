@@ -15,7 +15,7 @@ abstract class RouteMatcher
             }
         }
 
-        return null;
+        throw new RouteNotMatchedException("Route not matched for {$url}");
     }
 
     abstract protected function getRoutes(): array;
