@@ -12,6 +12,11 @@ You need `Verification Token` (`SLACK_VERIFICATION_TOKEN`) for next step.
 
 Under `Features`:
 - enable [Events API](http://api.slack.com/events-api) for [`link_shared`](https://api.slack.com/events/link_shared) event with `links:read` scope.
+  1. Click `Event Subscriptions` on the left.
+  2. Click `Enable Events`.
+  3. Click `Add Workspace Event` and add `link_shared`.
+  4. Click `Add Domain` and type your domain.
+  5. Click `Save Changes`.
 - enable `Incoming Webhooks`
 
 Obtain `OAuth Access Token` (`SLACK_API_TOKEN`) under `OAuth & Permissions`
