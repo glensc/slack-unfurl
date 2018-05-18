@@ -30,7 +30,7 @@ class Application extends BaseApplication
         $this->register(new ServiceProvider\CommandProvider());
         $this->register(new MonologServiceProvider(), [
             'monolog.name' => self::NAME,
-            'monolog.logfile' => dirname(__DIR__) . "/var/log/{$this['env']}.log",
+            'monolog.logfile' => "{$this['appDir']}/var/log/{$this['env']}.log",
             'monolog.use_error_handler' => true,
         ]);
     }
