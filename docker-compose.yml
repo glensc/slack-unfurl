@@ -7,6 +7,6 @@ services:
       - 4390:4390
     volumes:
       - ./.env:/app/.env:ro
-      - ./var/logs:/app/var/logs
+      - ./var/log:/app/var/log
 
 # vim:ts=2:sw=2:et

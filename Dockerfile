@@ -19,7 +19,7 @@ WORKDIR /app
 
 # ensure logs dir is writable by web user
 RUN set -x \
-	&& install -d -o www-data -g www-data var/logs \
+	&& install -d -o www-data -g www-data var/log \
 	&& exit 0
 
 USER www-data

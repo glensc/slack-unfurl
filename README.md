@@ -49,7 +49,7 @@ To build docker image locally and run it:
 
 ```
 docker build -t slack-unfurl .
-docker run --rm -p 4390:4390 -v $(pwd)/var/logs:/app/var/logs -v $(pwd)/.env:/app/.env slack-unfurl
+docker run --rm -p 4390:4390 -v $(pwd)/var/log:/app/var/log -v $(pwd)/.env:/app/.env slack-unfurl
 ```
 
 The service is accessible from http://slack-unfurl.127.0.0.1.xip.io:4390/ or just http://localhost:4390/
