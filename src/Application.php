@@ -37,10 +37,10 @@ class Application extends BaseApplication
 
     private function configureRoutes()
     {
-        $this->post('/', function (Request $request) {
+        $this->post($this['unfurl.app_prefix'], function (Request $request) {
             return $this[UnfurlController::class]($request);
         });
-        $this->get('/', function (Request $request) {
+        $this->get($this['unfurl.app_prefix'], function (Request $request) {
             return $this[InfoController::class]($request);
         });
     }

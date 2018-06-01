@@ -18,6 +18,7 @@ class ServiceProvider implements ServiceProviderInterface
     {
         $app['unfurl.slack_api_token'] = getenv('SLACK_API_TOKEN');
         $app['unfurl.slack_verification_token'] = getenv('SLACK_VERIFICATION_TOKEN');
+        $app['unfurl.app_prefix'] = getenv('APP_PREFIX') ?: '/';
 
         $app[SlackClient::class] = function ($app) {
             return new SlackClient($app['unfurl.slack_api_token']);
