@@ -1,5 +1,5 @@
-# dockerfile for eventum-slack-unfurl app
-# https://github.com/eventum/slack-unfurl
+# Dockerfile for slack-unfurl app
+# https://github.com/glensc/slack-unfurl
 
 # step 1: install composer vendor
 FROM composer:1.6 AS build
