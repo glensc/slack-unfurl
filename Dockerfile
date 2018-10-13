@@ -1,29 +1,32 @@
 # Dockerfile for slack-unfurl app
 # https://github.com/glensc/slack-unfurl
 
-# step 1: install composer vendor
+# install composer vendor
 FROM composer:1.6 AS build
 
-COPY . /app
+ARG COMPOSER_FLAGS="--no-interaction --no-suggest --ansi --no-dev"
+
 WORKDIR /app
 
-RUN composer install --no-dev -a
+# install in two steps to cache composer run
+COPY composer.* ./
+RUN composer install $COMPOSER_FLAGS --no-scripts --no-autoloader
+
+COPY . .
+RUN composer install $COMPOSER_FLAGS --classmap-authoritative
 # not needed for production deploy
 RUN rm -vf composer.* vendor/composer/*.json
 
-# step 2: build production image
+# build final runtime image
 FROM php:7.2-cli-alpine
 
-COPY --from=build /app /app
 WORKDIR /app
 
 # ensure logs dir is writable by web user
-RUN set -x \
-	&& install -d -o www-data -g www-data var/log \
-	&& exit 0
+RUN install -d -o www-data -g www-data var/log
 
 USER www-data
-
 EXPOSE 4390
-
 CMD ["php", "-S", "0.0.0.0:4390", "-t", "/app/web"]
+
+COPY --from=build /app .
