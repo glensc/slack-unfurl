@@ -17,6 +17,10 @@ Under `Features`:
   3. Click `Add Workspace Event` and add `link_shared`.
   4. Click `Add Domain` and type your domain.
   5. Click `Save Changes`.
+- add `links:write` permission scope
+  1. Click `OAuth & Permissions` on the left.
+  2. Go to `Scopes` section and select `Add link previews to messages` in the list of permissions.
+  3. Click `Save Changes`.
 - enable `Incoming Webhooks`
 
 Obtain `OAuth Access Token` (`SLACK_API_TOKEN`) under `OAuth & Permissions`
