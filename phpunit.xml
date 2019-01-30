@@ -10,7 +10,6 @@
 	convertWarningsToExceptions="true"
 	processIsolation="false"
 	stopOnFailure="false"
-	syntaxCheck="false"
 	bootstrap="tests/bootstrap.php">
 
 	<testsuites>
@@ -19,12 +18,12 @@
 		</testsuite>
 	</testsuites>
 
-	<!--
 	<php>
+	<!--
 		<ini name="date.timezone" value="UTC" />
 		<server name="KERNEL_DIR" value="/path/to/your/app/" />
-	</php>
 	-->
+	</php>
 
 	<!-- for code coverage -->
 	<filter>
