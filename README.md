@@ -38,6 +38,7 @@ The app itself handles no links, you need to add some providers:
 - [Eventum Provider](https://github.com/eventum/slack-unfurl-eventum)
 - [GitLab Provider](https://github.com/glensc/slack-unfurl-gitlab)
 - [Jira Provider](https://github.com/glensc/slack-unfurl-jira)
+- [Zendesk Provider](https://github.com/rcknr/slack-unfurl-zendesk)
 
 ## Troubleshoot
 
