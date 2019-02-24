@@ -1,6 +1,6 @@
 <?php
 
-namespace SlackUnfurl;
+namespace SlackUnfurl\Traits;
 
 use Psr\Log\LoggerInterface;
 use Psr\Log\LoggerTrait as PsrLoggerTrait;
