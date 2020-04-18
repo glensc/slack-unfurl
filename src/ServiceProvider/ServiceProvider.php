@@ -17,26 +17,26 @@ class ServiceProvider implements ServiceProviderInterface
         $app['unfurl.slack_verification_token'] = getenv('SLACK_VERIFICATION_TOKEN');
         $app['unfurl.app_prefix'] = getenv('APP_PREFIX') ?: '/';
 
-        $app[SlackClient::class] = function ($app) {
+        $app[SlackClient::class] = static function ($app) {
             return new SlackClient($app['unfurl.slack_api_token']);
         };
 
-        $app[CommandResolver::class] = function ($app) {
+        $app[CommandResolver::class] = static function ($app) {
             return new CommandResolver($app);
         };
 
-        $app[UnfurlController::class] = function ($app) {
+        $app[UnfurlController::class] = static function ($app) {
             return new UnfurlController(
                 $app[CommandResolver::class],
                 $app['unfurl.slack_verification_token']
             );
         };
 
-        $app[InfoController::class] = function ($app) {
+        $app[InfoController::class] = static function ($app) {
             return new InfoController($app['unfurl.dispatcher']);
         };
 
-        $app['unfurl.dispatcher'] = function ($app) {
+        $app['unfurl.dispatcher'] = static function ($app) {
             return $app['dispatcher'];
         };
     }

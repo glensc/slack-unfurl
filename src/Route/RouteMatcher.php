@@ -20,7 +20,7 @@ abstract class RouteMatcher
 
     private function getNamedKeys(array $array): array
     {
-        $namedKeys = array_filter(array_keys($array), function ($element) {
+        $namedKeys = array_filter(array_keys($array), static function ($element) {
             return !is_numeric($element);
         });
 

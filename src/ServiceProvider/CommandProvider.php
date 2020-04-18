@@ -12,15 +12,15 @@ class CommandProvider implements ServiceProviderInterface
 {
     public function register(Container $app): void
     {
-        $app[Command\UrlVerification::class] = function () {
+        $app[Command\UrlVerification::class] = static function () {
             return new Command\UrlVerification();
         };
 
-        $app[Command\EventCallback::class] = function ($app) {
+        $app[Command\EventCallback::class] = static function ($app) {
             return new Command\EventCallback($app[CommandResolver::class]);
         };
 
-        $app[Command\LinkShared::class] = function ($app) {
+        $app[Command\LinkShared::class] = static function ($app) {
             return new Command\LinkShared(
                 $app[SlackClient::class],
                 $app['unfurl.dispatcher'],
