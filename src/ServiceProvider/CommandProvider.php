@@ -10,10 +10,7 @@ use SlackUnfurl\SlackClient;
 
 class CommandProvider implements ServiceProviderInterface
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function register(Container $app)
+    public function register(Container $app): void
     {
         $app[Command\UrlVerification::class] = function () {
             return new Command\UrlVerification();

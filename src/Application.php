@@ -24,7 +24,7 @@ class Application extends BaseApplication
         $this->configureRoutes();
     }
 
-    private function registerProviders()
+    private function registerProviders(): void
     {
         $this->register(new ServiceProvider\ServiceProvider());
         $this->register(new ServiceProvider\CommandProvider());
@@ -35,7 +35,7 @@ class Application extends BaseApplication
         ]);
     }
 
-    private function configureRoutes()
+    private function configureRoutes(): void
     {
         $this->post($this['unfurl.app_prefix'], function (Request $request) {
             return $this[UnfurlController::class]($request);
@@ -45,7 +45,7 @@ class Application extends BaseApplication
         });
     }
 
-    private function setupErrorHandler()
+    private function setupErrorHandler(): void
     {
         $this->error(function (Throwable $e, Request $request, $code) {
             /** @var LoggerInterface $logger */

@@ -11,10 +11,7 @@ use SlackUnfurl\SlackClient;
 
 class ServiceProvider implements ServiceProviderInterface
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function register(Container $app)
+    public function register(Container $app): void
     {
         $app['unfurl.slack_api_token'] = getenv('SLACK_API_TOKEN');
         $app['unfurl.slack_verification_token'] = getenv('SLACK_VERIFICATION_TOKEN');

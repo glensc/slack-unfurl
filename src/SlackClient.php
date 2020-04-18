@@ -18,7 +18,7 @@ class SlackClient
         $this->slack = new slack($apiToken);
     }
 
-    public function unfurl(string $channel, string $ts, array $unfurls)
+    public function unfurl(string $channel, string $ts, array $unfurls): void
     {
         $queryString = [
             'ts' => $ts,

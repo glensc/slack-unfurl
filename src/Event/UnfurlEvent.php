@@ -2,6 +2,7 @@
 
 namespace SlackUnfurl\Event;
 
+use Generator;
 use Symfony\Component\EventDispatcher\Event;
 
 class UnfurlEvent extends Event
@@ -42,7 +43,7 @@ class UnfurlEvent extends Event
         return $this->data['links'] ?? [];
     }
 
-    public function getMatchingLinks(string $domain)
+    public function getMatchingLinks(string $domain): Generator
     {
         foreach ($this->getLinks() as $link) {
             if ($link['domain'] !== $domain) {
@@ -58,7 +59,7 @@ class UnfurlEvent extends Event
         return $this->unfurls;
     }
 
-    public function addUnfurl(string $url, array $unfurl)
+    public function addUnfurl(string $url, array $unfurl): self
     {
         $this->unfurls[$url] = $unfurl;
 

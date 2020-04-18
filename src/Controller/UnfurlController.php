@@ -4,8 +4,10 @@ namespace SlackUnfurl\Controller;
 
 use InvalidArgumentException;
 use SlackUnfurl\Command;
+use SlackUnfurl\Command\CommandInterface;
 use SlackUnfurl\CommandResolver;
 use SlackUnfurl\RuntimeException;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class UnfurlController
@@ -27,7 +29,7 @@ class UnfurlController
         $this->verificationToken = $verificationToken;
     }
 
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): JsonResponse
     {
         $content = $request->getContent();
         $payload = json_decode($content, 1);
@@ -37,6 +39,7 @@ class UnfurlController
 
         $this->verifyToken($payload['token'] ?? null);
 
+        /** @var CommandInterface $command */
         $command = $this->commandResolver
             ->configure(self::COMMAND_MAP)
             ->resolve($payload['type'] ?? null);
@@ -48,7 +51,7 @@ class UnfurlController
      * @param string $token
      * @throws InvalidArgumentException
      */
-    private function verifyToken($token)
+    private function verifyToken($token): void
     {
         if ($token !== $this->verificationToken) {
             throw new RuntimeException('Token verification failed');

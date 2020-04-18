@@ -16,7 +16,7 @@ class CommandResolver
         $this->container = $container;
     }
 
-    public function configure(array $mapping = [])
+    public function configure(array $mapping = []): self
     {
         $this->mapping = $mapping;
 

@@ -17,7 +17,7 @@ class InfoController
         $this->dispatcher = $dispatcher;
     }
 
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): Response
     {
         $listeners = $this->dispatcher->getListeners(Events::SLACK_UNFURL);
 
