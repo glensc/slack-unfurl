@@ -21,6 +21,6 @@ class UrlVerification implements CommandInterface
             return new JsonResponse(['challenge' => $challenge]);
         }
 
-        throw new RuntimeException();
+        throw new RuntimeException('Expected challenge not provided');
     }
 }
