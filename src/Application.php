@@ -13,7 +13,7 @@ use Throwable;
 
 class Application extends BaseApplication
 {
-    const NAME = 'unfurl';
+    private const NAME = 'unfurl';
 
     public function __construct(array $values = [])
     {
