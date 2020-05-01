@@ -28,6 +28,12 @@
         "phpunit/phpunit": "^6.5",
         "symfony/var-dumper": "^4.0"
     },
+    "suggest": {
+        "eventum/slack-unfurl-eventum": "Slack unfurl Eventum Provider",
+        "glen/slack-unfurl-gitlab": "Slack unfurl GitLab Provider",
+        "glen/slack-unfurl-jira": "Slack unfurl JIRA Provider",
+        "rcknr/slack-unfurl-zendesk": "Slack unfurl Zendesk Provider"
+    },
     "scripts": {
         "ngrok": [
             "ngrok http 4390"
