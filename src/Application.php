@@ -59,9 +59,11 @@ class Application extends Container
         $this->post($this['unfurl.app_prefix'], function (Request $request) {
             return $this[UnfurlController::class]($request);
         });
-
         $this->get($this['unfurl.app_prefix'], function (Request $request) {
             return $this[InfoController::class]($request);
+        });
+        $this->get('/favicon.ico', static function () {
+            return new Response('', 404);
         });
     }
 
