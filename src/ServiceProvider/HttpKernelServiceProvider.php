@@ -22,6 +22,8 @@ class HttpKernelServiceProvider implements ServiceProviderInterface
 {
     public function register(Container $app): void
     {
+        $app['debug'] = false;
+
         $app[RouteCollection::class] = new RouteCollection();
         $app[Request::class] = Request::createFromGlobals();
 

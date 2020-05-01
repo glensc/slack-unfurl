@@ -3,7 +3,9 @@
 namespace SlackUnfurl;
 
 use Pimple\Container;
+use Pimple\ServiceProviderInterface;
 use Psr\Log\LoggerInterface;
+use Silex\Api\EventListenerProviderInterface;
 use Silex\Provider\MonologServiceProvider;
 use SlackUnfurl\Controller\InfoController;
 use SlackUnfurl\Controller\UnfurlController;
@@ -18,6 +20,8 @@ use Throwable;
 class Application extends Container
 {
     private const NAME = 'unfurl';
+    /** @var ServiceProviderInterface[] */
+    private $providers;
 
     /**
      * Instantiate a new Application.
@@ -114,8 +118,30 @@ class Application extends Container
         });
     }
 
+    /**
+     * Registers a service provider.
+     *
+     * @param ServiceProviderInterface $provider A ServiceProviderInterface instance
+     * @param array $values An array of values that customizes the provider
+     * @return self
+     */
+    public function register(ServiceProviderInterface $provider, array $values = []): self
+    {
+        $this->providers[] = $provider;
+
+        parent::register($provider, $values);
+
+        return $this;
+    }
+
     public function run(): void
     {
+        foreach ($this->providers as $provider) {
+            if ($provider instanceof EventListenerProviderInterface) {
+                $provider->subscribe($this, $this['dispatcher']);
+            }
+        }
+
         /** @var HttpKernel $kernel */
         $kernel = $this[HttpKernel::class];
         /** @var Request $request */
