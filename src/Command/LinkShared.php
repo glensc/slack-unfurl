@@ -5,8 +5,8 @@ namespace SlackUnfurl\Command;
 use Psr\Log\LoggerInterface;
 use SlackUnfurl\Event\Events;
 use SlackUnfurl\Event\UnfurlEvent;
-use SlackUnfurl\Traits\LoggerTrait;
 use SlackUnfurl\SlackClient;
+use SlackUnfurl\Traits\LoggerTrait;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
