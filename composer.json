@@ -25,6 +25,7 @@
         "wrapi/slack": "^0.1.6"
     },
     "require-dev": {
+        "composer/composer": "^1.10",
         "phpunit/phpunit": "^6.5",
         "symfony/var-dumper": "^4.0"
     },
@@ -35,7 +36,9 @@
         "server": [
             "echo 'Started web server on http://slack-unfurl.127.0.0.1.xip.io:4390'",
             "php -S slack-unfurl.127.0.0.1.xip.io:4390 -t web"
-        ]
+        ],
+        "post-update-cmd":  "SlackUnfurl\\Composer\\RegisterPlugin::registerPlugins",
+        "post-install-cmd": "SlackUnfurl\\Composer\\RegisterPlugin::registerPlugins"
     },
     "scripts-descriptions": {
         "server": "Start http server at http://slack-unfurl.127.0.0.1.xip.io:4390",
