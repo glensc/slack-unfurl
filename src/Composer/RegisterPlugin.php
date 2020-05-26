@@ -30,7 +30,11 @@ final class RegisterPlugin implements PluginInterface, EventSubscriberInterface
 
     public static function getSubscribedEvents(): array
     {
-        return [ScriptEvents::POST_AUTOLOAD_DUMP => 'registerPlugins'];
+        return [
+            ScriptEvents::POST_AUTOLOAD_DUMP => 'registerPlugins',
+            ScriptEvents::POST_INSTALL_CMD => 'registerPlugins',
+            ScriptEvents::POST_ROOT_PACKAGE_INSTALL => 'registerPlugins',
+        ];
     }
 
     /**

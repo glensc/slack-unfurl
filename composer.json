@@ -27,6 +27,7 @@
     },
     "require-dev": {
         "composer/composer": "^1.10",
+        "composer/package-versions-deprecated": "^1.8",
         "phpunit/phpunit": "^6.5",
         "symfony/var-dumper": "^4.0"
     },
