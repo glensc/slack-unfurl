@@ -18,7 +18,7 @@ RUN composer install $COMPOSER_FLAGS --classmap-authoritative
 RUN rm -vf composer.* vendor/composer/*.json
 
 # build final runtime image
-FROM php:7.2-cli-alpine
+FROM php:7.4-cli-alpine
 
 WORKDIR /app
 
