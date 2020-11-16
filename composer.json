@@ -4,6 +4,7 @@
     "license": "MIT",
     "type": "project",
     "config": {
+        "process-timeout": 0,
         "sort-packages": true
     },
     "autoload": {
