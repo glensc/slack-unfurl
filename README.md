@@ -44,7 +44,8 @@ The app itself handles no links, you need to add some providers:
 
 If the unfurl is not happening check that the domain is not [blacklisted](https://my.slack.com/admin/attachments).
 
-If you modify app domains, you need to `Install App` (`/install-on-team` as url) again to re-authorize.
+If you modify app domains, you need to `Install App` (`/install-on-team` as url) again to re-authorize:
+- https://api.slack.com/reference/messaging/link-unfurling#configuring_domains
 
 ## Development
 
