@@ -43,4 +43,18 @@ trait SlackEscapeTrait
 
         return str_replace(array_keys($replacements), array_values($replacements), $url);
     }
+
+    /**
+     * Create Slack link.
+     *
+     * This performs url and title escaping properly.
+     *
+     * @param string $url
+     * @param string $title
+     * @return string
+     */
+    public function createLink(string $url, string $title): string
+    {
+        return sprintf('<%s|%s>', $this->urlencode($url), $this->escape($title));
+    }
 }
