@@ -39,6 +39,7 @@ The app itself handles no links, you need to add some providers:
 - [GitLab Provider](https://github.com/glensc/slack-unfurl-gitlab)
 - [Jira Provider](https://github.com/glensc/slack-unfurl-jira)
 - [Zendesk Provider](https://github.com/rcknr/slack-unfurl-zendesk)
+- [Pagerduty Provider](https://github.com/glensc/slack-unfurl-pagerduty)
 
 ## Troubleshoot
 
