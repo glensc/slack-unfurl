@@ -2,26 +2,49 @@
 
 namespace SlackUnfurl;
 
+use Pimple\Container;
+use Pimple\ServiceProviderInterface;
 use Psr\Log\LoggerInterface;
-use Silex\Application as BaseApplication;
+use Silex\Api\EventListenerProviderInterface;
 use Silex\Provider\MonologServiceProvider;
 use SlackUnfurl\Controller\InfoController;
 use SlackUnfurl\Controller\UnfurlController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\HttpKernel;
+use Symfony\Component\Routing\Route;
+use Symfony\Component\Routing\RouteCollection;
 use Throwable;
 
-class Application extends BaseApplication
+class Application extends Container
 {
     private const NAME = 'unfurl';
+    /** @var ServiceProviderInterface[] */
+    private $providers;
 
+    /**
+     * Instantiate a new Application.
+     *
+     * Objects and parameters can be passed as argument to the constructor.
+     *
+     * @param array $values the parameters or objects
+     */
     public function __construct(array $values = [])
     {
         parent::__construct($values);
 
+        $this->setupKernel();
+        /*
         $this->setupErrorHandler();
+         */
         $this->registerProviders();
         $this->configureRoutes();
+    }
+
+    private function setupKernel(): void
+    {
+        $this->register(new ServiceProvider\HttpKernelServiceProvider());
     }
 
     private function registerProviders(): void
@@ -43,6 +66,45 @@ class Application extends BaseApplication
         $this->get($this['unfurl.app_prefix'], function (Request $request) {
             return $this[InfoController::class]($request);
         });
+        $this->get('/favicon.ico', static function () {
+            return new Response('', 404);
+        });
+    }
+
+    /**
+     * Maps a GET request to a callable.
+     *
+     * @param string $path The path pattern to match
+     * @param callable $callable Callback that returns the response when matched
+     */
+    public function get($path, $callable): void
+    {
+        $this->addRoute('get', $path, $callable);
+    }
+
+    /**
+     * Maps a POST request to a callable.
+     *
+     * @param string $path The path pattern to match
+     * @param callable $callable Callback that returns the response when matched
+     **/
+    public function post($path, $callable): void
+    {
+        $this->addRoute('post', $path, $callable);
+    }
+
+    private function addRoute($method, $path, $callable): void
+    {
+        /** @var RouteCollection $routes */
+        $routes = $this[RouteCollection::class];
+
+        $defaults = [
+            '_controller' => $callable,
+        ];
+        $route = new Route($path, $defaults);
+        $route->setMethods($method);
+        $name = $method . $path;
+        $routes->add($name, $route);
     }
 
     private function setupErrorHandler(): void
@@ -54,5 +116,40 @@ class Application extends BaseApplication
 
             return new JsonResponse('Internal Error', $code);
         });
+    }
+
+    /**
+     * Registers a service provider.
+     *
+     * @param ServiceProviderInterface $provider A ServiceProviderInterface instance
+     * @param array $values An array of values that customizes the provider
+     * @return self
+     */
+    public function register(ServiceProviderInterface $provider, array $values = []): self
+    {
+        $this->providers[] = $provider;
+
+        parent::register($provider, $values);
+
+        return $this;
+    }
+
+    public function run(): void
+    {
+        foreach ($this->providers as $provider) {
+            if ($provider instanceof EventListenerProviderInterface) {
+                $provider->subscribe($this, $this['dispatcher']);
+            }
+        }
+
+        /** @var HttpKernel $kernel */
+        $kernel = $this[HttpKernel::class];
+        /** @var Request $request */
+        $request = $this[Request::class];
+
+        $response = $kernel->handle($request);
+        $response->send();
+
+        $kernel->terminate($request, $response);
     }
 }
