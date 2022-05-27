@@ -2,7 +2,7 @@
 # https://github.com/glensc/slack-unfurl
 
 # install composer vendor
-FROM composer:1.10 AS build
+FROM composer:2.3 AS build
 
 ARG COMPOSER_FLAGS="--no-interaction --no-suggest --ansi --no-dev"
 
@@ -18,7 +18,7 @@ RUN composer install $COMPOSER_FLAGS --classmap-authoritative
 RUN rm -vf composer.* vendor/composer/*.json
 
 # build final runtime image
-FROM php:7.4-cli-alpine
+FROM php:8.1-cli-alpine
 
 WORKDIR /app
 
@@ -27,6 +27,6 @@ RUN install -d -o www-data -g www-data var/log
 
 USER www-data
 EXPOSE 4390
-CMD ["php", "-S", "0.0.0.0:4390", "-t", "/app/web"]
+CMD ["php", "-S", "0.0.0.0:4390", "-t", "/app/public"]
 
 COPY --from=build /app .
