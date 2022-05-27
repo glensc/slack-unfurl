@@ -3,21 +3,20 @@
 namespace SlackUnfurl\Controller;
 
 use SlackUnfurl\Event\Events;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
-class InfoController
+class InfoController extends AbstractController
 {
-    /** @var EventDispatcherInterface */
-    private $dispatcher;
 
-    public function __construct(EventDispatcherInterface $dispatcher)
-    {
-        $this->dispatcher = $dispatcher;
-    }
+    public function __construct(
+      private readonly EventDispatcherInterface $dispatcher
+    ) {}
 
-    public function __invoke(Request $request): Response
+    #[Route('/', name: 'info', methods: 'GET')]
+    public function info(): Response
     {
         $listeners = $this->dispatcher->getListeners(Events::SLACK_UNFURL);
 

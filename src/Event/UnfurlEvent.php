@@ -3,15 +3,12 @@
 namespace SlackUnfurl\Event;
 
 use Generator;
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
 class UnfurlEvent extends Event
 {
-    /** @var array */
-    protected $data;
 
-    /** @var array */
-    protected $unfurls = [];
+    protected array $unfurls = [];
 
     /**
      * @param array $data "event" key from payload
@@ -28,10 +25,9 @@ class UnfurlEvent extends Event
      *   ]
      *  }
      */
-    public function __construct(array $data = [])
-    {
-        $this->data = $data;
-    }
+    public function __construct(
+      protected array $data = []
+    ) {}
 
     public function getData(): array
     {

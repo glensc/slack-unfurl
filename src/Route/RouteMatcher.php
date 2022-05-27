@@ -4,8 +4,7 @@ namespace SlackUnfurl\Route;
 
 abstract class RouteMatcher
 {
-    /** @var array */
-    protected $routes;
+    protected array $routes;
 
     public function match(string $url): array
     {

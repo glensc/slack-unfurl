@@ -9,8 +9,7 @@ trait LoggerTrait
 {
     use PsrLoggerTrait;
 
-    /** @var LoggerInterface */
-    protected $logger;
+    protected LoggerInterface $logger;
 
     public function log($level, $message, array $context = []): void
     {

@@ -2,7 +2,6 @@
 
 namespace SlackUnfurl;
 
-use InvalidArgumentException;
 use SlackUnfurl\Traits\SlackEscapeTrait;
 use wrapi\slack\slack;
 
@@ -10,8 +9,7 @@ class SlackClient
 {
     use SlackEscapeTrait;
 
-    /** @var slack */
-    private $slack;
+    private slack $slack;
 
     public function __construct(string $apiToken)
     {
@@ -23,12 +21,12 @@ class SlackClient
         $queryString = [
             'ts' => $ts,
             'channel' => $channel,
-            'unfurls' => json_encode($unfurls),
+            'unfurls' => json_encode($unfurls, JSON_THROW_ON_ERROR),
         ];
 
         $response = $this->slack->chat->unfurl($queryString);
         if ($response['ok'] !== true) {
-            throw new InvalidArgumentException($response['error']);
+            throw new RuntimeException($response['error']);
         }
     }
 }
